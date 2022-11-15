@@ -1,0 +1,50 @@
+buildscript{
+    repositories{
+        jcenter()
+    }
+
+    dependencies{
+        classpath'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+
+    maven { url 'https://repo.s8u.kr/repository/maven-minecraft/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc:paper:1.8.8'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+processResources {
+    filesMatching('**/*.yml') {
+        expand(project.properties)
+    }
+}
+
+shadowJar {
+    archiveBaseName.set(pluginName)
+    archiveClassifier.set('')
+}
+
+task copyToServerWindows(type: Copy) {
+    from(shadowJar)
+    into('D:\\서버\\1.8.9 테스트 서버\\update')
+}
