@@ -23,7 +23,7 @@ public class TimeMotdPlugin extends JavaPlugin implements Listener {
         if (hour >= 24) {
             hour -= 24;
         }
-        int minute = (int) Math.floor((time % 1000) / (1000 / 60));
+        int minute = (int) Math.floor((time % 1000) / (1000 / 60)); // 1000 Tick = 1 Hour
         String ampm = hour >= 12 ? "PM" : "AM";
 
         ChatColor color = (18 < hour || hour < 6) ? ChatColor.DARK_BLUE : ChatColor.AQUA;
